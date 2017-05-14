@@ -21,7 +21,7 @@
 
   <groupId>com.github.robtimus</groupId>
   <artifactId>io-functions</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>jar</packaging>
 
   <name>io-functions</name>
@@ -46,7 +46,7 @@
   <scm>
     <connection>scm:git:git@github.com:robtimus/io-functions.git</connection>
     <developerConnection>scm:git:git@github.com:robtimus/io-functions.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>io-functions-1.0</tag>
     <url>https://github.com/robtimus/io-functions</url>
   </scm>
 
