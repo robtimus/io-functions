@@ -53,6 +53,7 @@ public class ObjDoubleIOConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() {
             Map<String, Double> map = new HashMap<>();
+
             ObjDoubleIOConsumer<String> ioConsumer = map::put;
             ObjDoubleConsumer<String> consumer = unchecked(ioConsumer);
 
@@ -89,6 +90,7 @@ public class ObjDoubleIOConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() throws IOException {
             Map<String, Double> map = new HashMap<>();
+
             ObjDoubleConsumer<String> consumer = map::put;
             ObjDoubleIOConsumer<String> ioConsumer = checked(consumer);
 

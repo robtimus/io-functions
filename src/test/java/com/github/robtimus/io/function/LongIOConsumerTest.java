@@ -127,6 +127,7 @@ public class LongIOConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() {
             List<Long> list = new ArrayList<>();
+
             LongIOConsumer ioConsumer = list::add;
             LongConsumer consumer = unchecked(ioConsumer);
 
@@ -163,6 +164,7 @@ public class LongIOConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() throws IOException {
             List<Long> list = new ArrayList<>();
+
             LongConsumer consumer = list::add;
             LongIOConsumer ioConsumer = checked(consumer);
 

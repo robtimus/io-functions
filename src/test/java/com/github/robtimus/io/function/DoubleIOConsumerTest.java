@@ -127,6 +127,7 @@ public class DoubleIOConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() {
             List<Double> list = new ArrayList<>();
+
             DoubleIOConsumer ioConsumer = list::add;
             DoubleConsumer consumer = unchecked(ioConsumer);
 
@@ -163,6 +164,7 @@ public class DoubleIOConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() throws IOException {
             List<Double> list = new ArrayList<>();
+
             DoubleConsumer consumer = list::add;
             DoubleIOConsumer ioConsumer = checked(consumer);
 

@@ -1,5 +1,5 @@
 /*
- * ObjIntIOConsumerTest.java
+ * IORunnableTest.java
  * Copyright 2019 Rob Spoor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,30 +17,28 @@
 
 package com.github.robtimus.io.function;
 
-import static com.github.robtimus.io.function.ObjIntIOConsumer.checked;
-import static com.github.robtimus.io.function.ObjIntIOConsumer.unchecked;
+import static com.github.robtimus.io.function.IORunnable.checked;
+import static com.github.robtimus.io.function.IORunnable.unchecked;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.ObjIntConsumer;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings({ "javadoc", "nls" })
-public class ObjIntIOConsumerTest {
+public class IORunnableTest {
 
-    private static final String TEST_VALUE1 = "foo";
-    private static final int TEST_VALUE2 = 13;
+    private static final String TEST_VALUE = "foo";
 
     @Nested
-    @DisplayName("unchecked(ObjIntIOConsumer<? super T>)")
+    @DisplayName("unchecked(IORunnable)")
     public class Unchecked {
 
         @Test
@@ -52,32 +50,31 @@ public class ObjIntIOConsumerTest {
         @Test
         @DisplayName("accepts")
         public void testAccepts() {
-            Map<String, Integer> map = new HashMap<>();
+            List<String> list = new ArrayList<>();
+            IORunnable ioAction = () -> list.add(TEST_VALUE);
+            Runnable action = unchecked(ioAction);
 
-            ObjIntIOConsumer<String> ioConsumer = map::put;
-            ObjIntConsumer<String> consumer = unchecked(ioConsumer);
-
-            consumer.accept(TEST_VALUE1, TEST_VALUE2);
-            assertEquals(Collections.singletonMap(TEST_VALUE1, TEST_VALUE2), map);
+            action.run();
+            assertEquals(Collections.singletonList(TEST_VALUE), list);
         }
 
         @Test
         @DisplayName("throws")
         public void testThrows() {
-            ObjIntIOConsumer<String> ioConsumer = (t, u) -> {
-                throw new IOException("ioConsumer");
+            IORunnable ioAction = () -> {
+                throw new IOException("ioAction");
             };
-            ObjIntConsumer<String> consumer = unchecked(ioConsumer);
+            Runnable action = unchecked(ioAction);
 
-            UncheckedIOException exception = assertThrows(UncheckedIOException.class, () -> consumer.accept(TEST_VALUE1, TEST_VALUE2));
+            UncheckedIOException exception = assertThrows(UncheckedIOException.class, () -> action.run());
             IOException cause = exception.getCause();
             assertNotNull(cause);
-            assertEquals("ioConsumer", cause.getMessage());
+            assertEquals("ioAction", cause.getMessage());
         }
     }
 
     @Nested
-    @DisplayName("checked(ObjIntConsumer<? super T>)")
+    @DisplayName("checked(Runnable)")
     public class Checked {
 
         @Test
@@ -87,27 +84,27 @@ public class ObjIntIOConsumerTest {
         }
 
         @Test
-        @DisplayName("accepts")
+        @DisplayName("runs")
         public void testAccepts() throws IOException {
-            Map<String, Integer> map = new HashMap<>();
+            List<String> list = new ArrayList<>();
 
-            ObjIntConsumer<String> consumer = map::put;
-            ObjIntIOConsumer<String> ioConsumer = checked(consumer);
+            Runnable action = () -> list.add(TEST_VALUE);
+            IORunnable ioAction = checked(action);
 
-            ioConsumer.accept(TEST_VALUE1, TEST_VALUE2);
-            assertEquals(Collections.singletonMap(TEST_VALUE1, TEST_VALUE2), map);
+            ioAction.run();
+            assertEquals(Collections.singletonList(TEST_VALUE), list);
         }
 
         @Test
         @DisplayName("throws UncheckedIOException")
         public void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
-            ObjIntConsumer<String> consumer = (t, u) -> {
+            Runnable action = () -> {
                 throw new UncheckedIOException(e);
             };
-            ObjIntIOConsumer<String> ioConsumer = checked(consumer);
+            IORunnable ioAction = checked(action);
 
-            IOException exception = assertThrows(IOException.class, () -> ioConsumer.accept(TEST_VALUE1, TEST_VALUE2));
+            IOException exception = assertThrows(IOException.class, () -> ioAction.run());
             assertSame(e, exception);
         }
 
@@ -115,12 +112,12 @@ public class ObjIntIOConsumerTest {
         @DisplayName("throws other exception")
         public void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
-            ObjIntConsumer<String> consumer = (t, u) -> {
+            Runnable action = () -> {
                 throw e;
             };
-            ObjIntIOConsumer<String> ioConsumer = checked(consumer);
+            IORunnable ioAction = checked(action);
 
-            IllegalStateException exception = assertThrows(IllegalStateException.class, () -> ioConsumer.accept(TEST_VALUE1, TEST_VALUE2));
+            IllegalStateException exception = assertThrows(IllegalStateException.class, () -> ioAction.run());
             assertSame(e, exception);
         }
     }

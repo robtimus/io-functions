@@ -53,6 +53,7 @@ public class ObjLongIOConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() {
             Map<String, Long> map = new HashMap<>();
+
             ObjLongIOConsumer<String> ioConsumer = map::put;
             ObjLongConsumer<String> consumer = unchecked(ioConsumer);
 
@@ -89,6 +90,7 @@ public class ObjLongIOConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() throws IOException {
             Map<String, Long> map = new HashMap<>();
+
             ObjLongConsumer<String> consumer = map::put;
             ObjLongIOConsumer<String> ioConsumer = checked(consumer);
 

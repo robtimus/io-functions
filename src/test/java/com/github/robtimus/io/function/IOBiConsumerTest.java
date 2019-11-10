@@ -128,6 +128,7 @@ public class IOBiConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() {
             Map<String, Integer> map = new HashMap<>();
+
             IOBiConsumer<String, Integer> ioConsumer = map::put;
             BiConsumer<String, Integer> consumer = unchecked(ioConsumer);
 
@@ -164,6 +165,7 @@ public class IOBiConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() throws IOException {
             Map<String, Integer> map = new HashMap<>();
+
             BiConsumer<String, Integer> consumer = map::put;
             IOBiConsumer<String, Integer> ioConsumer = checked(consumer);
 

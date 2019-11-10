@@ -127,6 +127,7 @@ public class IntIOConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() {
             List<Integer> list = new ArrayList<>();
+
             IntIOConsumer ioConsumer = list::add;
             IntConsumer consumer = unchecked(ioConsumer);
 
@@ -163,6 +164,7 @@ public class IntIOConsumerTest {
         @DisplayName("accepts")
         public void testAccepts() throws IOException {
             List<Integer> list = new ArrayList<>();
+
             IntConsumer consumer = list::add;
             IntIOConsumer ioConsumer = checked(consumer);
 
