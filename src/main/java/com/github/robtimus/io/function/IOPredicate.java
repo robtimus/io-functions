@@ -132,4 +132,19 @@ public interface IOPredicate<T> {
             }
         };
     }
+
+    /**
+     * Returns a predicate that represents the logical negation of another predicate.
+     * This is accomplished by returning the result of calling {@code target.negate()}.
+     *
+     * @param <T> The type of the argument to the predicate.
+     * @param target The predicate to negate.
+     * @return A predicate that represents the logical negation of the given predicate
+     * @throws NullPointerException If the given predicate is {@code null}.
+     * @since 1.1
+     */
+    @SuppressWarnings("unchecked")
+    static <T> IOPredicate<T> not(IOPredicate<? super T> target) {
+        return (IOPredicate<T>) target.negate();
+    }
 }

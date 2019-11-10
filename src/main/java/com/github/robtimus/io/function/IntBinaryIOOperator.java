@@ -20,6 +20,7 @@ package com.github.robtimus.io.function;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Objects;
+import java.util.function.IntBinaryOperator;
 
 /**
  * Represents an operation upon two {@code int}-valued operands and producing an {@code int}-valued result.
@@ -47,7 +48,7 @@ public interface IntBinaryIOOperator {
      *         {@link UncheckedIOException}.
      * @throws NullPointerException If {@code operator} is {@code null}.
      */
-    static IntBinaryIOOperator unchecked(IntBinaryIOOperator operator) {
+    static IntBinaryOperator unchecked(IntBinaryIOOperator operator) {
         Objects.requireNonNull(operator);
         return (left, right) -> {
             try {
@@ -66,7 +67,7 @@ public interface IntBinaryIOOperator {
      * @return A binary operator that applies the {@code operator} operator to its input, and unwraps any {@link UncheckedIOException} that is thrown.
      * @throws NullPointerException If {@code operator} is {@code null}.
      */
-    static IntBinaryIOOperator checked(IntBinaryIOOperator operator) {
+    static IntBinaryIOOperator checked(IntBinaryOperator operator) {
         Objects.requireNonNull(operator);
         return (left, right) -> {
             try {
