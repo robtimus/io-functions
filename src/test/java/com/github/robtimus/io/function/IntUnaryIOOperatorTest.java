@@ -31,19 +31,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class IntUnaryIOOperatorTest {
+@SuppressWarnings("nls")
+class IntUnaryIOOperatorTest {
 
     private static final int TEST_VALUE = 13;
     private static final int TEST_RESULT = 481;
 
     @Nested
     @DisplayName("compose(IntUnaryIOOperator)")
-    public class Compose {
+    class Compose {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             IntUnaryIOOperator operator = t -> TEST_RESULT;
 
             assertThrows(NullPointerException.class, () -> operator.compose(null));
@@ -51,7 +51,7 @@ public class IntUnaryIOOperatorTest {
 
         @Test
         @DisplayName("applies and applies")
-        public void testAppliesAndApplies() throws IOException {
+        void testAppliesAndApplies() throws IOException {
             IntUnaryIOOperator operator = t -> TEST_RESULT;
             IntUnaryIOOperator before = t -> TEST_VALUE;
             IntUnaryIOOperator combined = operator.compose(before);
@@ -61,7 +61,7 @@ public class IntUnaryIOOperatorTest {
 
         @Test
         @DisplayName("applies and throws")
-        public void testAcceptsAndThrows() {
+        void testAcceptsAndThrows() {
             IntUnaryIOOperator operator = t -> TEST_RESULT;
             IntUnaryIOOperator before = t -> {
                 throw new IOException("before");
@@ -74,7 +74,7 @@ public class IntUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws and applies")
-        public void testThrowsAndAccepts() {
+        void testThrowsAndAccepts() {
             IntUnaryIOOperator operator = t -> {
                 throw new IOException("operator");
             };
@@ -87,7 +87,7 @@ public class IntUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             IntUnaryIOOperator operator = t -> {
                 throw new IOException("operator");
             };
@@ -103,11 +103,11 @@ public class IntUnaryIOOperatorTest {
 
     @Nested
     @DisplayName("andThen(IntUnaryIOOperator)")
-    public class AndThen {
+    class AndThen {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             IntUnaryIOOperator operator = t -> TEST_RESULT;
 
             assertThrows(NullPointerException.class, () -> operator.andThen(null));
@@ -115,7 +115,7 @@ public class IntUnaryIOOperatorTest {
 
         @Test
         @DisplayName("applies and applies")
-        public void testAppliesAndApplies() throws IOException {
+        void testAppliesAndApplies() throws IOException {
             IntUnaryIOOperator operator = t -> TEST_RESULT;
             IntUnaryIOOperator after = t -> TEST_VALUE;
             IntUnaryIOOperator combined = operator.andThen(after);
@@ -125,7 +125,7 @@ public class IntUnaryIOOperatorTest {
 
         @Test
         @DisplayName("applies and throws")
-        public void testAcceptsAndThrows() {
+        void testAcceptsAndThrows() {
             IntUnaryIOOperator operator = t -> TEST_RESULT;
             IntUnaryIOOperator after = t -> {
                 throw new IOException("after");
@@ -138,7 +138,7 @@ public class IntUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws and applies")
-        public void testThrowsAndAccepts() {
+        void testThrowsAndAccepts() {
             IntUnaryIOOperator operator = t -> {
                 throw new IOException("operator");
             };
@@ -151,7 +151,7 @@ public class IntUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             IntUnaryIOOperator operator = t -> {
                 throw new IOException("operator");
             };
@@ -167,7 +167,7 @@ public class IntUnaryIOOperatorTest {
 
     @Test
     @DisplayName("identity()")
-    public void testIdentity() throws IOException {
+    void testIdentity() throws IOException {
         IntUnaryIOOperator operator = identity();
 
         assertEquals(TEST_VALUE, operator.applyAsInt(TEST_VALUE));
@@ -175,17 +175,17 @@ public class IntUnaryIOOperatorTest {
 
     @Nested
     @DisplayName("unchecked(IntUnaryIOOperator)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             IntUnaryIOOperator ioOperator = t -> TEST_RESULT;
             IntUnaryOperator operator = unchecked(ioOperator);
 
@@ -194,7 +194,7 @@ public class IntUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             IntUnaryIOOperator ioOperator = t -> {
                 throw new IOException("ioOperator");
             };
@@ -209,17 +209,17 @@ public class IntUnaryIOOperatorTest {
 
     @Nested
     @DisplayName("checked(UnaryOperator<? super T, ? extends R>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             IntUnaryOperator operator = t -> TEST_RESULT;
             IntUnaryIOOperator ioOperator = checked(operator);
 
@@ -228,7 +228,7 @@ public class IntUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             IntUnaryOperator operator = t -> {
                 throw new UncheckedIOException(e);
@@ -241,7 +241,7 @@ public class IntUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             IntUnaryOperator operator = t -> {
                 throw e;

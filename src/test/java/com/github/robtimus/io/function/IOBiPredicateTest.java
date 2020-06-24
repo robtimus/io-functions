@@ -32,19 +32,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class IOBiPredicateTest {
+@SuppressWarnings("nls")
+class IOBiPredicateTest {
 
     private static final String TEST_VALUE1 = "foo";
     private static final Integer TEST_VALUE2 = 13;
 
     @Nested
     @DisplayName("and(IOBiPredicate<? super T, ? super U>)")
-    public class And {
+    class And {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             IOBiPredicate<String, Integer> predicate = (t, u) -> true;
 
             assertThrows(NullPointerException.class, () -> predicate.and(null));
@@ -52,7 +52,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("true and true")
-        public void testTrueAndTrue() throws IOException {
+        void testTrueAndTrue() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> true;
             IOBiPredicate<String, Integer> other = (t, u) -> true;
             IOBiPredicate<String, Integer> combined = predicate.and(other);
@@ -62,7 +62,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("true and false")
-        public void testTrueAndFalse() throws IOException {
+        void testTrueAndFalse() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> true;
             IOBiPredicate<String, Integer> other = (t, u) -> false;
             IOBiPredicate<String, Integer> combined = predicate.and(other);
@@ -72,7 +72,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("true and throws")
-        public void testTrueAndThrows() {
+        void testTrueAndThrows() {
             IOBiPredicate<String, Integer> predicate = (t, u) -> true;
             IOBiPredicate<String, Integer> other = (t, u) -> {
                 throw new IOException("other");
@@ -85,7 +85,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("false and true")
-        public void testFalseAndTrue() throws IOException {
+        void testFalseAndTrue() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> false;
             IOBiPredicate<String, Integer> other = (t, u) -> true;
             IOBiPredicate<String, Integer> combined = predicate.and(other);
@@ -95,7 +95,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("false and false")
-        public void testFalseAndFalse() throws IOException {
+        void testFalseAndFalse() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> false;
             IOBiPredicate<String, Integer> other = (t, u) -> false;
             IOBiPredicate<String, Integer> combined = predicate.and(other);
@@ -105,7 +105,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("false and throws")
-        public void testFalseAndThrows() throws IOException {
+        void testFalseAndThrows() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> false;
             IOBiPredicate<String, Integer> other = (t, u) -> {
                 throw new IOException("other");
@@ -117,7 +117,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("throws and true")
-        public void testThrowsAndTrue() {
+        void testThrowsAndTrue() {
             IOBiPredicate<String, Integer> predicate = (t, u) -> {
                 throw new IOException("predicate");
             };
@@ -130,7 +130,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("throws and false")
-        public void testThrowsAndFalse() {
+        void testThrowsAndFalse() {
             IOBiPredicate<String, Integer> predicate = (t, u) -> {
                 throw new IOException("predicate");
             };
@@ -143,7 +143,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             IOBiPredicate<String, Integer> predicate = (t, u) -> {
                 throw new IOException("predicate");
             };
@@ -159,11 +159,11 @@ public class IOBiPredicateTest {
 
     @Nested
     @DisplayName("negate()")
-    public class Negate {
+    class Negate {
 
         @Test
         @DisplayName("true")
-        public void testTrue() throws IOException {
+        void testTrue() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> true;
             IOBiPredicate<String, Integer> negated = predicate.negate();
 
@@ -172,7 +172,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() throws IOException {
+        void testFalse() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> false;
             IOBiPredicate<String, Integer> negated = predicate.negate();
 
@@ -181,7 +181,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             IOBiPredicate<String, Integer> predicate = (t, u) -> {
                 throw new IOException("predicate");
             };
@@ -194,11 +194,11 @@ public class IOBiPredicateTest {
 
     @Nested
     @DisplayName("or(IOBiPredicate<? super T, ? super U>)")
-    public class Or {
+    class Or {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             IOBiPredicate<String, Integer> predicate = (t, u) -> true;
 
             assertThrows(NullPointerException.class, () -> predicate.or(null));
@@ -206,7 +206,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("true or true")
-        public void testTrueOrTrue() throws IOException {
+        void testTrueOrTrue() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> true;
             IOBiPredicate<String, Integer> other = (t, u) -> true;
             IOBiPredicate<String, Integer> combined = predicate.or(other);
@@ -216,7 +216,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("true or false")
-        public void testTrueOrFalse() throws IOException {
+        void testTrueOrFalse() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> true;
             IOBiPredicate<String, Integer> other = (t, u) -> false;
             IOBiPredicate<String, Integer> combined = predicate.or(other);
@@ -226,7 +226,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("true or throws")
-        public void testTrueOrThrows() throws IOException {
+        void testTrueOrThrows() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> true;
             IOBiPredicate<String, Integer> other = (t, u) -> {
                 throw new IOException("other");
@@ -238,7 +238,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("false or true")
-        public void testFalseOrTrue() throws IOException {
+        void testFalseOrTrue() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> false;
             IOBiPredicate<String, Integer> other = (t, u) -> true;
             IOBiPredicate<String, Integer> combined = predicate.or(other);
@@ -248,7 +248,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("false or false")
-        public void testFalseOrFalse() throws IOException {
+        void testFalseOrFalse() throws IOException {
             IOBiPredicate<String, Integer> predicate = (t, u) -> false;
             IOBiPredicate<String, Integer> other = (t, u) -> false;
             IOBiPredicate<String, Integer> combined = predicate.or(other);
@@ -258,7 +258,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("false or throws")
-        public void testFalseOrThrows() {
+        void testFalseOrThrows() {
             IOBiPredicate<String, Integer> predicate = (t, u) -> false;
             IOBiPredicate<String, Integer> other = (t, u) -> {
                 throw new IOException("other");
@@ -271,7 +271,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("throws or true")
-        public void testThrowsOrTrue() {
+        void testThrowsOrTrue() {
             IOBiPredicate<String, Integer> predicate = (t, u) -> {
                 throw new IOException("predicate");
             };
@@ -284,7 +284,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("throws or false")
-        public void testThrowsOrFalse() {
+        void testThrowsOrFalse() {
             IOBiPredicate<String, Integer> predicate = (t, u) -> {
                 throw new IOException("predicate");
             };
@@ -297,7 +297,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("throws or throws")
-        public void testThrowsOrThrows() {
+        void testThrowsOrThrows() {
             IOBiPredicate<String, Integer> predicate = (t, u) -> {
                 throw new IOException("predicate");
             };
@@ -313,17 +313,17 @@ public class IOBiPredicateTest {
 
     @Nested
     @DisplayName("unchecked(IOBiPredicate<? super T, ? super U>)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("true")
-        public void testTrue() {
+        void testTrue() {
             IOBiPredicate<String, Integer> ioPredicate = (t, u) -> true;
             BiPredicate<String, Integer> predicate = unchecked(ioPredicate);
 
@@ -332,7 +332,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() {
+        void testFalse() {
             IOBiPredicate<String, Integer> ioPredicate = (t, u) -> false;
             BiPredicate<String, Integer> predicate = unchecked(ioPredicate);
 
@@ -341,7 +341,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             IOBiPredicate<String, Integer> ioPredicate = (t, u) -> {
                 throw new IOException("ioPredicate");
             };
@@ -356,17 +356,17 @@ public class IOBiPredicateTest {
 
     @Nested
     @DisplayName("checked(BiPredicate<? super T, ? super U>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("true")
-        public void testTrue() throws IOException {
+        void testTrue() throws IOException {
             BiPredicate<String, Integer> predicate = (t, u) -> true;
             IOBiPredicate<String, Integer> ioPredicate = checked(predicate);
 
@@ -375,7 +375,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() throws IOException {
+        void testFalse() throws IOException {
             BiPredicate<String, Integer> predicate = (t, u) -> false;
             IOBiPredicate<String, Integer> ioPredicate = checked(predicate);
 
@@ -384,7 +384,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             BiPredicate<String, Integer> predicate = (t, u) -> {
                 throw new UncheckedIOException(e);
@@ -397,7 +397,7 @@ public class IOBiPredicateTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             BiPredicate<String, Integer> predicate = (t, u) -> {
                 throw e;

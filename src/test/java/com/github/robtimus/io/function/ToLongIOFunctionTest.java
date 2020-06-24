@@ -30,25 +30,25 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class ToLongIOFunctionTest {
+@SuppressWarnings("nls")
+class ToLongIOFunctionTest {
 
     private static final String TEST_VALUE = "foo";
     private static final long TEST_RESULT = System.currentTimeMillis();
 
     @Nested
     @DisplayName("unchecked(ToLongIOFunction<? super T>)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             ToLongIOFunction<String> ioFunction = t -> TEST_RESULT;
             ToLongFunction<String> function = unchecked(ioFunction);
 
@@ -57,7 +57,7 @@ public class ToLongIOFunctionTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             ToLongIOFunction<String> ioFunction = t -> {
                 throw new IOException("ioToLongFunction");
             };
@@ -72,17 +72,17 @@ public class ToLongIOFunctionTest {
 
     @Nested
     @DisplayName("checked(ToLongFunction<? super T, ? extends R>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             ToLongFunction<String> function = t -> TEST_RESULT;
             ToLongIOFunction<String> ioFunction = checked(function);
 
@@ -91,7 +91,7 @@ public class ToLongIOFunctionTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             ToLongFunction<String> function = t -> {
                 throw new UncheckedIOException(e);
@@ -104,7 +104,7 @@ public class ToLongIOFunctionTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             ToLongFunction<String> function = t -> {
                 throw e;

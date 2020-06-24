@@ -32,24 +32,24 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class IORunnableTest {
+@SuppressWarnings("nls")
+class IORunnableTest {
 
     private static final String TEST_VALUE = "foo";
 
     @Nested
     @DisplayName("unchecked(IORunnable)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("accepts")
-        public void testAccepts() {
+        void testAccepts() {
             List<String> list = new ArrayList<>();
             IORunnable ioAction = () -> list.add(TEST_VALUE);
             Runnable action = unchecked(ioAction);
@@ -60,7 +60,7 @@ public class IORunnableTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             IORunnable ioAction = () -> {
                 throw new IOException("ioAction");
             };
@@ -75,17 +75,17 @@ public class IORunnableTest {
 
     @Nested
     @DisplayName("checked(Runnable)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("runs")
-        public void testAccepts() throws IOException {
+        void testAccepts() throws IOException {
             List<String> list = new ArrayList<>();
 
             Runnable action = () -> list.add(TEST_VALUE);
@@ -97,7 +97,7 @@ public class IORunnableTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             Runnable action = () -> {
                 throw new UncheckedIOException(e);
@@ -110,7 +110,7 @@ public class IORunnableTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             Runnable action = () -> {
                 throw e;

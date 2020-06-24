@@ -31,19 +31,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class LongUnaryIOOperatorTest {
+@SuppressWarnings("nls")
+class LongUnaryIOOperatorTest {
 
     private static final long TEST_VALUE = System.currentTimeMillis();
     private static final long TEST_RESULT = TEST_VALUE * 2;
 
     @Nested
     @DisplayName("compose(LongUnaryIOOperator)")
-    public class Compose {
+    class Compose {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             LongUnaryIOOperator operator = t -> TEST_RESULT;
 
             assertThrows(NullPointerException.class, () -> operator.compose(null));
@@ -51,7 +51,7 @@ public class LongUnaryIOOperatorTest {
 
         @Test
         @DisplayName("applies and applies")
-        public void testAppliesAndApplies() throws IOException {
+        void testAppliesAndApplies() throws IOException {
             LongUnaryIOOperator operator = t -> TEST_RESULT;
             LongUnaryIOOperator before = t -> TEST_VALUE;
             LongUnaryIOOperator combined = operator.compose(before);
@@ -61,7 +61,7 @@ public class LongUnaryIOOperatorTest {
 
         @Test
         @DisplayName("applies and throws")
-        public void testAcceptsAndThrows() {
+        void testAcceptsAndThrows() {
             LongUnaryIOOperator operator = t -> TEST_RESULT;
             LongUnaryIOOperator before = t -> {
                 throw new IOException("before");
@@ -74,7 +74,7 @@ public class LongUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws and applies")
-        public void testThrowsAndAccepts() {
+        void testThrowsAndAccepts() {
             LongUnaryIOOperator operator = t -> {
                 throw new IOException("operator");
             };
@@ -87,7 +87,7 @@ public class LongUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             LongUnaryIOOperator operator = t -> {
                 throw new IOException("operator");
             };
@@ -103,11 +103,11 @@ public class LongUnaryIOOperatorTest {
 
     @Nested
     @DisplayName("andThen(LongUnaryIOOperator)")
-    public class AndThen {
+    class AndThen {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             LongUnaryIOOperator operator = t -> TEST_RESULT;
 
             assertThrows(NullPointerException.class, () -> operator.andThen(null));
@@ -115,7 +115,7 @@ public class LongUnaryIOOperatorTest {
 
         @Test
         @DisplayName("applies and applies")
-        public void testAppliesAndApplies() throws IOException {
+        void testAppliesAndApplies() throws IOException {
             LongUnaryIOOperator operator = t -> TEST_RESULT;
             LongUnaryIOOperator after = t -> TEST_VALUE;
             LongUnaryIOOperator combined = operator.andThen(after);
@@ -125,7 +125,7 @@ public class LongUnaryIOOperatorTest {
 
         @Test
         @DisplayName("applies and throws")
-        public void testAcceptsAndThrows() {
+        void testAcceptsAndThrows() {
             LongUnaryIOOperator operator = t -> TEST_RESULT;
             LongUnaryIOOperator after = t -> {
                 throw new IOException("after");
@@ -138,7 +138,7 @@ public class LongUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws and applies")
-        public void testThrowsAndAccepts() {
+        void testThrowsAndAccepts() {
             LongUnaryIOOperator operator = t -> {
                 throw new IOException("operator");
             };
@@ -151,7 +151,7 @@ public class LongUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             LongUnaryIOOperator operator = t -> {
                 throw new IOException("operator");
             };
@@ -167,7 +167,7 @@ public class LongUnaryIOOperatorTest {
 
     @Test
     @DisplayName("identity()")
-    public void testIdentity() throws IOException {
+    void testIdentity() throws IOException {
         LongUnaryIOOperator operator = identity();
 
         assertEquals(TEST_VALUE, operator.applyAsLong(TEST_VALUE));
@@ -175,17 +175,17 @@ public class LongUnaryIOOperatorTest {
 
     @Nested
     @DisplayName("unchecked(LongUnaryIOOperator)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             LongUnaryIOOperator ioOperator = t -> TEST_RESULT;
             LongUnaryOperator operator = unchecked(ioOperator);
 
@@ -194,7 +194,7 @@ public class LongUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             LongUnaryIOOperator ioOperator = t -> {
                 throw new IOException("ioOperator");
             };
@@ -209,17 +209,17 @@ public class LongUnaryIOOperatorTest {
 
     @Nested
     @DisplayName("checked(UnaryOperator<? super T, ? extends R>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             LongUnaryOperator operator = t -> TEST_RESULT;
             LongUnaryIOOperator ioOperator = checked(operator);
 
@@ -228,7 +228,7 @@ public class LongUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             LongUnaryOperator operator = t -> {
                 throw new UncheckedIOException(e);
@@ -241,7 +241,7 @@ public class LongUnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             LongUnaryOperator operator = t -> {
                 throw e;

@@ -30,24 +30,24 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class BooleanIOSupplierTest {
+@SuppressWarnings("nls")
+class BooleanIOSupplierTest {
 
     private static final boolean TEST_VALUE = true;
 
     @Nested
     @DisplayName("unchecked(BooleanIOSupplier)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("supplies")
-        public void testSupplies() {
+        void testSupplies() {
             BooleanIOSupplier ioSupplier = () -> TEST_VALUE;
             BooleanSupplier supplier = unchecked(ioSupplier);
 
@@ -56,7 +56,7 @@ public class BooleanIOSupplierTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             BooleanIOSupplier ioSupplier = () -> {
                 throw new IOException("ioSupplier");
             };
@@ -71,17 +71,17 @@ public class BooleanIOSupplierTest {
 
     @Nested
     @DisplayName("checked(BooleanSupplier)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("supplies")
-        public void testSupplies() throws IOException {
+        void testSupplies() throws IOException {
             BooleanSupplier supplier = () -> TEST_VALUE;
             BooleanIOSupplier ioSupplier = checked(supplier);
 
@@ -90,7 +90,7 @@ public class BooleanIOSupplierTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             BooleanSupplier supplier = () -> {
                 throw new UncheckedIOException(e);
@@ -103,7 +103,7 @@ public class BooleanIOSupplierTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             BooleanSupplier supplier = () -> {
                 throw e;

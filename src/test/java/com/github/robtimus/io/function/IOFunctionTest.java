@@ -32,19 +32,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class IOFunctionTest {
+@SuppressWarnings("nls")
+class IOFunctionTest {
 
     private static final String TEST_VALUE = "foo";
     private static final Integer TEST_RESULT = TEST_VALUE.length();
 
     @Nested
     @DisplayName("compose(IOFunction<? super T, ? extends R>)")
-    public class Compose {
+    class Compose {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             IOFunction<String, Integer> function = String::length;
 
             assertThrows(NullPointerException.class, () -> function.compose(null));
@@ -52,7 +52,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("applies and applies")
-        public void testAppliesAndApplies() throws IOException {
+        void testAppliesAndApplies() throws IOException {
             IOFunction<String, Integer> function = t -> TEST_RESULT;
             IOFunction<Integer, String> before = t -> TEST_VALUE;
             IOFunction<Integer, Integer> combined = function.compose(before);
@@ -62,7 +62,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("applies and throws")
-        public void testAcceptsAndThrows() {
+        void testAcceptsAndThrows() {
             IOFunction<String, Integer> function = t -> TEST_RESULT;
             IOFunction<Integer, String> before = t -> {
                 throw new IOException("before");
@@ -75,7 +75,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("throws and applies")
-        public void testThrowsAndAccepts() {
+        void testThrowsAndAccepts() {
             IOFunction<String, Integer> function = t -> {
                 throw new IOException("function");
             };
@@ -88,7 +88,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             IOFunction<String, Integer> function = t -> {
                 throw new IOException("function");
             };
@@ -104,11 +104,11 @@ public class IOFunctionTest {
 
     @Nested
     @DisplayName("andThen(IOFunction<? super T, ? extends R>)")
-    public class AndThen {
+    class AndThen {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             IOFunction<String, Integer> function = String::length;
 
             assertThrows(NullPointerException.class, () -> function.andThen(null));
@@ -116,7 +116,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("applies and applies")
-        public void testAppliesAndApplies() throws IOException {
+        void testAppliesAndApplies() throws IOException {
             IOFunction<String, Integer> function = t -> TEST_RESULT;
             IOFunction<Integer, String> after = t -> TEST_VALUE;
             IOFunction<String, String> combined = function.andThen(after);
@@ -126,7 +126,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("applies and throws")
-        public void testAcceptsAndThrows() {
+        void testAcceptsAndThrows() {
             IOFunction<String, Integer> function = t -> TEST_RESULT;
             IOFunction<Integer, String> after = t -> {
                 throw new IOException("after");
@@ -139,7 +139,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("throws and applies")
-        public void testThrowsAndAccepts() {
+        void testThrowsAndAccepts() {
             IOFunction<String, Integer> function = t -> {
                 throw new IOException("function");
             };
@@ -152,7 +152,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             IOFunction<String, Integer> function = t -> {
                 throw new IOException("function");
             };
@@ -168,11 +168,11 @@ public class IOFunctionTest {
 
     @Nested
     @DisplayName("identity()")
-    public class Identity {
+    class Identity {
 
         @Test
         @DisplayName("non-null value")
-        public void testNonNull() throws IOException {
+        void testNonNull() throws IOException {
             IOFunction<String, String> function = identity();
 
             assertEquals(TEST_VALUE, function.apply(TEST_VALUE));
@@ -180,7 +180,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("null value")
-        public void testNull() throws IOException {
+        void testNull() throws IOException {
             IOFunction<String, String> function = identity();
 
             assertNull(function.apply(null));
@@ -189,17 +189,17 @@ public class IOFunctionTest {
 
     @Nested
     @DisplayName("unchecked(IOFunction<? super T, ? extends R>)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             IOFunction<String, Integer> ioFunction = String::length;
             Function<String, Integer> function = unchecked(ioFunction);
 
@@ -208,7 +208,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             IOFunction<String, Integer> ioFunction = t -> {
                 throw new IOException("ioFunction");
             };
@@ -223,17 +223,17 @@ public class IOFunctionTest {
 
     @Nested
     @DisplayName("checked(Function<? super T, ? extends R>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             Function<String, Integer> function = String::length;
             IOFunction<String, Integer> ioFunction = checked(function);
 
@@ -242,7 +242,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             Function<String, Integer> function = t -> {
                 throw new UncheckedIOException(e);
@@ -255,7 +255,7 @@ public class IOFunctionTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             Function<String, Integer> function = t -> {
                 throw e;

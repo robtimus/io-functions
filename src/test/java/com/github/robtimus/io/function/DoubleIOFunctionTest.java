@@ -30,25 +30,25 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class DoubleIOFunctionTest {
+@SuppressWarnings("nls")
+class DoubleIOFunctionTest {
 
     private static final double TEST_VALUE = Math.PI;
     private static final String TEST_RESULT = "foo";
 
     @Nested
     @DisplayName("unchecked(DoubleIOFunction<? super R>)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             DoubleIOFunction<String> ioFunction = t -> TEST_RESULT;
             DoubleFunction<String> function = unchecked(ioFunction);
 
@@ -57,7 +57,7 @@ public class DoubleIOFunctionTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             DoubleIOFunction<String> ioFunction = t -> {
                 throw new IOException("ioFunction");
             };
@@ -72,17 +72,17 @@ public class DoubleIOFunctionTest {
 
     @Nested
     @DisplayName("checked(DoubleFunction<? super R, ? extends R>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             DoubleFunction<String> function = t -> TEST_RESULT;
             DoubleIOFunction<String> ioFunction = checked(function);
 
@@ -91,7 +91,7 @@ public class DoubleIOFunctionTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             DoubleFunction<String> function = t -> {
                 throw new UncheckedIOException(e);
@@ -104,7 +104,7 @@ public class DoubleIOFunctionTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             DoubleFunction<String> function = t -> {
                 throw e;

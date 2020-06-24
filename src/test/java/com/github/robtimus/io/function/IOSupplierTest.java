@@ -30,24 +30,24 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class IOSupplierTest {
+@SuppressWarnings("nls")
+class IOSupplierTest {
 
     private static final String TEST_VALUE = "foo";
 
     @Nested
     @DisplayName("unchecked(IOSupplier<? extends T>)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("supplies")
-        public void testSupplies() {
+        void testSupplies() {
             IOSupplier<String> ioSupplier = () -> TEST_VALUE;
             Supplier<String> supplier = unchecked(ioSupplier);
 
@@ -56,7 +56,7 @@ public class IOSupplierTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             IOSupplier<String> ioSupplier = () -> {
                 throw new IOException("ioSupplier");
             };
@@ -71,17 +71,17 @@ public class IOSupplierTest {
 
     @Nested
     @DisplayName("checked(Supplier<? extends T>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("supplies")
-        public void testSupplies() throws IOException {
+        void testSupplies() throws IOException {
             Supplier<String> supplier = () -> TEST_VALUE;
             IOSupplier<String> ioSupplier = checked(supplier);
 
@@ -90,7 +90,7 @@ public class IOSupplierTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             Supplier<String> supplier = () -> {
                 throw new UncheckedIOException(e);
@@ -103,7 +103,7 @@ public class IOSupplierTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             Supplier<String> supplier = () -> {
                 throw e;

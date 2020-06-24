@@ -30,8 +30,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class DoubleBinaryIOOperatorTest {
+@SuppressWarnings("nls")
+class DoubleBinaryIOOperatorTest {
 
     private static final double TEST_VALUE1 = Math.PI;
     private static final double TEST_VALUE2 = Math.E;
@@ -39,17 +39,17 @@ public class DoubleBinaryIOOperatorTest {
 
     @Nested
     @DisplayName("unchecked(DoubleBinaryIOOperator)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             DoubleBinaryIOOperator ioOperator = (t, u) -> TEST_RESULT;
             DoubleBinaryOperator operator = unchecked(ioOperator);
 
@@ -58,7 +58,7 @@ public class DoubleBinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             DoubleBinaryIOOperator ioOperator = (t, u) -> {
                 throw new IOException("ioOperator");
             };
@@ -73,17 +73,17 @@ public class DoubleBinaryIOOperatorTest {
 
     @Nested
     @DisplayName("checked(DoubleBinaryOperator<T>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             DoubleBinaryOperator operator = (t, u) -> TEST_RESULT;
             DoubleBinaryIOOperator ioOperator = checked(operator);
 
@@ -92,7 +92,7 @@ public class DoubleBinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             DoubleBinaryOperator operator = (t, u) -> {
                 throw new UncheckedIOException(e);
@@ -105,7 +105,7 @@ public class DoubleBinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             DoubleBinaryOperator operator = (t, u) -> {
                 throw e;

@@ -33,18 +33,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class LongIOConsumerTest {
+@SuppressWarnings("nls")
+class LongIOConsumerTest {
 
     private static final long TEST_VALUE = System.currentTimeMillis();
 
     @Nested
     @DisplayName("andThen(LongIOConsumer)")
-    public class AndThen {
+    class AndThen {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             LongIOConsumer consumer = t -> { /* does nothing */ };
 
             assertThrows(NullPointerException.class, () -> consumer.andThen(null));
@@ -52,7 +52,7 @@ public class LongIOConsumerTest {
 
         @Test
         @DisplayName("accepts and accepts")
-        public void testAcceptsAndAccepts() throws IOException {
+        void testAcceptsAndAccepts() throws IOException {
             List<Long> consumerList = new ArrayList<>();
             List<Long> afterList = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class LongIOConsumerTest {
 
         @Test
         @DisplayName("accepts and throws")
-        public void testAcceptsAndThrows() {
+        void testAcceptsAndThrows() {
             List<Long> consumerList = new ArrayList<>();
 
             LongIOConsumer consumer = consumerList::add;
@@ -83,7 +83,7 @@ public class LongIOConsumerTest {
 
         @Test
         @DisplayName("throws and accepts")
-        public void testThrowsAndAccepts() {
+        void testThrowsAndAccepts() {
             List<Long> afterList = new ArrayList<>();
 
             LongIOConsumer consumer = t -> {
@@ -99,7 +99,7 @@ public class LongIOConsumerTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             LongIOConsumer consumer = t -> {
                 throw new IOException("consumer");
             };
@@ -115,17 +115,17 @@ public class LongIOConsumerTest {
 
     @Nested
     @DisplayName("unchecked(LongIOConsumer)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("accepts")
-        public void testAccepts() {
+        void testAccepts() {
             List<Long> list = new ArrayList<>();
 
             LongIOConsumer ioConsumer = list::add;
@@ -137,7 +137,7 @@ public class LongIOConsumerTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             LongIOConsumer ioConsumer = t -> {
                 throw new IOException("ioConsumer");
             };
@@ -152,17 +152,17 @@ public class LongIOConsumerTest {
 
     @Nested
     @DisplayName("checked(LongConsumer)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("accepts")
-        public void testAccepts() throws IOException {
+        void testAccepts() throws IOException {
             List<Long> list = new ArrayList<>();
 
             LongConsumer consumer = list::add;
@@ -174,7 +174,7 @@ public class LongIOConsumerTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             LongConsumer consumer = t -> {
                 throw new UncheckedIOException(e);
@@ -187,7 +187,7 @@ public class LongIOConsumerTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             LongConsumer consumer = t -> {
                 throw e;

@@ -34,8 +34,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class BinaryIOOperatorTest {
+@SuppressWarnings("nls")
+class BinaryIOOperatorTest {
 
     private static final String TEST_VALUE1 = "foo";
     private static final String TEST_VALUE2 = "bar";
@@ -43,17 +43,17 @@ public class BinaryIOOperatorTest {
 
     @Nested
     @DisplayName("minBy(Comparator<? super T>)")
-    public class MinBy {
+    class MinBy {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> minBy(null));
         }
 
         @Test
         @DisplayName("natural order")
-        public void testNaturalOrder() throws IOException {
+        void testNaturalOrder() throws IOException {
             BinaryIOOperator<String> operator = minBy(naturalOrder());
 
             assertEquals(TEST_VALUE2, operator.apply(TEST_VALUE1, TEST_VALUE2));
@@ -62,7 +62,7 @@ public class BinaryIOOperatorTest {
 
         @Test
         @DisplayName("reverse order")
-        public void testReverseOrder() throws IOException {
+        void testReverseOrder() throws IOException {
             BinaryIOOperator<String> operator = minBy(reverseOrder());
 
             assertEquals(TEST_VALUE1, operator.apply(TEST_VALUE1, TEST_VALUE2));
@@ -72,17 +72,17 @@ public class BinaryIOOperatorTest {
 
     @Nested
     @DisplayName("maxBy(Comparator<? super T>)")
-    public class MaxBy {
+    class MaxBy {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> maxBy(null));
         }
 
         @Test
         @DisplayName("natural order")
-        public void testNaturalOrder() throws IOException {
+        void testNaturalOrder() throws IOException {
             BinaryIOOperator<String> operator = maxBy(naturalOrder());
 
             assertEquals(TEST_VALUE1, operator.apply(TEST_VALUE1, TEST_VALUE2));
@@ -91,7 +91,7 @@ public class BinaryIOOperatorTest {
 
         @Test
         @DisplayName("reverse order")
-        public void testReverseOrder() throws IOException {
+        void testReverseOrder() throws IOException {
             BinaryIOOperator<String> operator = maxBy(reverseOrder());
 
             assertEquals(TEST_VALUE2, operator.apply(TEST_VALUE1, TEST_VALUE2));
@@ -101,17 +101,17 @@ public class BinaryIOOperatorTest {
 
     @Nested
     @DisplayName("unchecked(BinaryIOOperator<T>)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             BinaryIOOperator<String> ioOperator = (t, u) -> TEST_RESULT;
             BinaryOperator<String> operator = unchecked(ioOperator);
 
@@ -120,7 +120,7 @@ public class BinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             BinaryIOOperator<String> ioOperator = (t, u) -> {
                 throw new IOException("ioOperator");
             };
@@ -135,17 +135,17 @@ public class BinaryIOOperatorTest {
 
     @Nested
     @DisplayName("checked(BinaryOperator<T>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             BinaryOperator<String> operator = (t, u) -> TEST_RESULT;
             BinaryIOOperator<String> ioOperator = checked(operator);
 
@@ -154,7 +154,7 @@ public class BinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             BinaryOperator<String> operator = (t, u) -> {
                 throw new UncheckedIOException(e);
@@ -167,7 +167,7 @@ public class BinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             BinaryOperator<String> operator = (t, u) -> {
                 throw e;

@@ -30,8 +30,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class ToLongIOBiFunctionTest {
+@SuppressWarnings("nls")
+class ToLongIOBiFunctionTest {
 
     private static final String TEST_VALUE1 = "foo";
     private static final Integer TEST_VALUE2 = 13;
@@ -39,17 +39,17 @@ public class ToLongIOBiFunctionTest {
 
     @Nested
     @DisplayName("unchecked(ToLongIOBiFunction<? super T, ? super U, ? extends R>)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             ToLongIOBiFunction<String, Integer> ioFunction = (t, u) -> TEST_RESULT;
             ToLongBiFunction<String, Integer> function = unchecked(ioFunction);
 
@@ -58,7 +58,7 @@ public class ToLongIOBiFunctionTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             ToLongIOBiFunction<String, Integer> ioFunction = (t, u) -> {
                 throw new IOException("ioFunction");
             };
@@ -73,17 +73,17 @@ public class ToLongIOBiFunctionTest {
 
     @Nested
     @DisplayName("checked(BiFunction<? super T, ? super U, ? extends R>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             ToLongBiFunction<String, Integer> function = (t, u) -> TEST_RESULT;
             ToLongIOBiFunction<String, Integer> ioFunction = checked(function);
 
@@ -92,7 +92,7 @@ public class ToLongIOBiFunctionTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             ToLongBiFunction<String, Integer> function = (t, u) -> {
                 throw new UncheckedIOException(e);
@@ -105,7 +105,7 @@ public class ToLongIOBiFunctionTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             ToLongBiFunction<String, Integer> function = (t, u) -> {
                 throw e;

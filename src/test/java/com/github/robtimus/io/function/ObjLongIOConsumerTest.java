@@ -33,25 +33,25 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class ObjLongIOConsumerTest {
+@SuppressWarnings("nls")
+class ObjLongIOConsumerTest {
 
     private static final String TEST_VALUE1 = "foo";
     private static final long TEST_VALUE2 = System.currentTimeMillis();
 
     @Nested
     @DisplayName("unchecked(ObjLongIOConsumer<? super T>)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("accepts")
-        public void testAccepts() {
+        void testAccepts() {
             Map<String, Long> map = new HashMap<>();
 
             ObjLongIOConsumer<String> ioConsumer = map::put;
@@ -63,7 +63,7 @@ public class ObjLongIOConsumerTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             ObjLongIOConsumer<String> ioConsumer = (t, u) -> {
                 throw new IOException("ioConsumer");
             };
@@ -78,17 +78,17 @@ public class ObjLongIOConsumerTest {
 
     @Nested
     @DisplayName("checked(ObjLongConsumer<? super T>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("accepts")
-        public void testAccepts() throws IOException {
+        void testAccepts() throws IOException {
             Map<String, Long> map = new HashMap<>();
 
             ObjLongConsumer<String> consumer = map::put;
@@ -100,7 +100,7 @@ public class ObjLongIOConsumerTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             ObjLongConsumer<String> consumer = (t, u) -> {
                 throw new UncheckedIOException(e);
@@ -113,7 +113,7 @@ public class ObjLongIOConsumerTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             ObjLongConsumer<String> consumer = (t, u) -> {
                 throw e;

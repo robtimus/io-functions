@@ -30,8 +30,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class IntBinaryIOOperatorTest {
+@SuppressWarnings("nls")
+class IntBinaryIOOperatorTest {
 
     private static final int TEST_VALUE1 = 13;
     private static final int TEST_VALUE2 = 481;
@@ -39,17 +39,17 @@ public class IntBinaryIOOperatorTest {
 
     @Nested
     @DisplayName("unchecked(IntBinaryIOOperator)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             IntBinaryIOOperator ioOperator = (t, u) -> TEST_RESULT;
             IntBinaryOperator operator = unchecked(ioOperator);
 
@@ -58,7 +58,7 @@ public class IntBinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             IntBinaryIOOperator ioOperator = (t, u) -> {
                 throw new IOException("ioOperator");
             };
@@ -73,17 +73,17 @@ public class IntBinaryIOOperatorTest {
 
     @Nested
     @DisplayName("checked(IntBinaryOperator<T>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             IntBinaryOperator operator = (t, u) -> TEST_RESULT;
             IntBinaryIOOperator ioOperator = checked(operator);
 
@@ -92,7 +92,7 @@ public class IntBinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             IntBinaryOperator operator = (t, u) -> {
                 throw new UncheckedIOException(e);
@@ -105,7 +105,7 @@ public class IntBinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             IntBinaryOperator operator = (t, u) -> {
                 throw e;

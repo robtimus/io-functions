@@ -32,18 +32,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class LongIOPredicateTest {
+@SuppressWarnings("nls")
+class LongIOPredicateTest {
 
     private static final long TEST_VALUE = System.currentTimeMillis();
 
     @Nested
     @DisplayName("and(LongIOPredicate)")
-    public class And {
+    class And {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             LongIOPredicate predicate = t -> true;
 
             assertThrows(NullPointerException.class, () -> predicate.and(null));
@@ -51,7 +51,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("true and true")
-        public void testTrueAndTrue() throws IOException {
+        void testTrueAndTrue() throws IOException {
             LongIOPredicate predicate = t -> true;
             LongIOPredicate other = t -> true;
             LongIOPredicate combined = predicate.and(other);
@@ -61,7 +61,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("true and false")
-        public void testTrueAndFalse() throws IOException {
+        void testTrueAndFalse() throws IOException {
             LongIOPredicate predicate = t -> true;
             LongIOPredicate other = t -> false;
             LongIOPredicate combined = predicate.and(other);
@@ -71,7 +71,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("true and throws")
-        public void testTrueAndThrows() {
+        void testTrueAndThrows() {
             LongIOPredicate predicate = t -> true;
             LongIOPredicate other = t -> {
                 throw new IOException("other");
@@ -84,7 +84,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("false and true")
-        public void testFalseAndTrue() throws IOException {
+        void testFalseAndTrue() throws IOException {
             LongIOPredicate predicate = t -> false;
             LongIOPredicate other = t -> true;
             LongIOPredicate combined = predicate.and(other);
@@ -94,7 +94,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("false and false")
-        public void testFalseAndFalse() throws IOException {
+        void testFalseAndFalse() throws IOException {
             LongIOPredicate predicate = t -> false;
             LongIOPredicate other = t -> false;
             LongIOPredicate combined = predicate.and(other);
@@ -104,7 +104,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("false and throws")
-        public void testFalseAndThrows() throws IOException {
+        void testFalseAndThrows() throws IOException {
             LongIOPredicate predicate = t -> false;
             LongIOPredicate other = t -> {
                 throw new IOException("other");
@@ -116,7 +116,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("throws and true")
-        public void testThrowsAndTrue() {
+        void testThrowsAndTrue() {
             LongIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -129,7 +129,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("throws and false")
-        public void testThrowsAndFalse() {
+        void testThrowsAndFalse() {
             LongIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -142,7 +142,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             LongIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -158,11 +158,11 @@ public class LongIOPredicateTest {
 
     @Nested
     @DisplayName("negate()")
-    public class Negate {
+    class Negate {
 
         @Test
         @DisplayName("true")
-        public void testTrue() throws IOException {
+        void testTrue() throws IOException {
             LongIOPredicate predicate = t -> true;
             LongIOPredicate negated = predicate.negate();
 
@@ -171,7 +171,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() throws IOException {
+        void testFalse() throws IOException {
             LongIOPredicate predicate = t -> false;
             LongIOPredicate negated = predicate.negate();
 
@@ -180,7 +180,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             LongIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -193,11 +193,11 @@ public class LongIOPredicateTest {
 
     @Nested
     @DisplayName("or(LongIOPredicate)")
-    public class Or {
+    class Or {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             LongIOPredicate predicate = t -> true;
 
             assertThrows(NullPointerException.class, () -> predicate.or(null));
@@ -205,7 +205,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("true or true")
-        public void testTrueOrTrue() throws IOException {
+        void testTrueOrTrue() throws IOException {
             LongIOPredicate predicate = t -> true;
             LongIOPredicate other = t -> true;
             LongIOPredicate combined = predicate.or(other);
@@ -215,7 +215,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("true or false")
-        public void testTrueOrFalse() throws IOException {
+        void testTrueOrFalse() throws IOException {
             LongIOPredicate predicate = t -> true;
             LongIOPredicate other = t -> false;
             LongIOPredicate combined = predicate.or(other);
@@ -225,7 +225,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("true or throws")
-        public void testTrueOrThrows() throws IOException {
+        void testTrueOrThrows() throws IOException {
             LongIOPredicate predicate = t -> true;
             LongIOPredicate other = t -> {
                 throw new IOException("other");
@@ -237,7 +237,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("false or true")
-        public void testFalseOrTrue() throws IOException {
+        void testFalseOrTrue() throws IOException {
             LongIOPredicate predicate = t -> false;
             LongIOPredicate other = t -> true;
             LongIOPredicate combined = predicate.or(other);
@@ -247,7 +247,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("false or false")
-        public void testFalseOrFalse() throws IOException {
+        void testFalseOrFalse() throws IOException {
             LongIOPredicate predicate = t -> false;
             LongIOPredicate other = t -> false;
             LongIOPredicate combined = predicate.or(other);
@@ -257,7 +257,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("false or throws")
-        public void testFalseOrThrows() {
+        void testFalseOrThrows() {
             LongIOPredicate predicate = t -> false;
             LongIOPredicate other = t -> {
                 throw new IOException("other");
@@ -270,7 +270,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("throws or true")
-        public void testThrowsOrTrue() {
+        void testThrowsOrTrue() {
             LongIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -283,7 +283,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("throws or false")
-        public void testThrowsOrFalse() {
+        void testThrowsOrFalse() {
             LongIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -296,7 +296,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("throws or throws")
-        public void testThrowsOrThrows() {
+        void testThrowsOrThrows() {
             LongIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -312,17 +312,17 @@ public class LongIOPredicateTest {
 
     @Nested
     @DisplayName("unchecked(LongIOPredicate)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("true")
-        public void testTrue() {
+        void testTrue() {
             LongIOPredicate ioPredicate = t -> true;
             LongPredicate predicate = unchecked(ioPredicate);
 
@@ -331,7 +331,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() {
+        void testFalse() {
             LongIOPredicate ioPredicate = t -> false;
             LongPredicate predicate = unchecked(ioPredicate);
 
@@ -340,7 +340,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             LongIOPredicate ioPredicate = t -> {
                 throw new IOException("ioPredicate");
             };
@@ -355,17 +355,17 @@ public class LongIOPredicateTest {
 
     @Nested
     @DisplayName("checked(LongPredicate)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("true")
-        public void testTrue() throws IOException {
+        void testTrue() throws IOException {
             LongPredicate predicate = t -> true;
             LongIOPredicate ioPredicate = checked(predicate);
 
@@ -374,7 +374,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() throws IOException {
+        void testFalse() throws IOException {
             LongPredicate predicate = t -> false;
             LongIOPredicate ioPredicate = checked(predicate);
 
@@ -383,7 +383,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             LongPredicate predicate = t -> {
                 throw new UncheckedIOException(e);
@@ -396,7 +396,7 @@ public class LongIOPredicateTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             LongPredicate predicate = t -> {
                 throw e;

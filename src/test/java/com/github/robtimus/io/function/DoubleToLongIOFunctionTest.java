@@ -30,25 +30,25 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class DoubleToLongIOFunctionTest {
+@SuppressWarnings("nls")
+class DoubleToLongIOFunctionTest {
 
     private static final double TEST_VALUE = Math.PI;
     private static final long TEST_RESULT = System.currentTimeMillis();
 
     @Nested
     @DisplayName("unchecked(DoubleToLongIOFunction)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             DoubleToLongIOFunction ioFunction = t -> TEST_RESULT;
             DoubleToLongFunction function = unchecked(ioFunction);
 
@@ -57,7 +57,7 @@ public class DoubleToLongIOFunctionTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             DoubleToLongIOFunction ioFunction = t -> {
                 throw new IOException("ioFunction");
             };
@@ -72,17 +72,17 @@ public class DoubleToLongIOFunctionTest {
 
     @Nested
     @DisplayName("checked(DoubleToLongFunction<? super R, ? extends R>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             DoubleToLongFunction function = t -> TEST_RESULT;
             DoubleToLongIOFunction ioFunction = checked(function);
 
@@ -91,7 +91,7 @@ public class DoubleToLongIOFunctionTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             DoubleToLongFunction function = t -> {
                 throw new UncheckedIOException(e);
@@ -104,7 +104,7 @@ public class DoubleToLongIOFunctionTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             DoubleToLongFunction function = t -> {
                 throw e;

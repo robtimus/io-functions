@@ -30,8 +30,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class LongBinaryIOOperatorTest {
+@SuppressWarnings("nls")
+class LongBinaryIOOperatorTest {
 
     private static final long TEST_VALUE1 = System.currentTimeMillis();
     private static final long TEST_VALUE2 = TEST_VALUE1 * 2;
@@ -39,17 +39,17 @@ public class LongBinaryIOOperatorTest {
 
     @Nested
     @DisplayName("unchecked(LongBinaryIOOperator)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             LongBinaryIOOperator ioOperator = (t, u) -> TEST_RESULT;
             LongBinaryOperator operator = unchecked(ioOperator);
 
@@ -58,7 +58,7 @@ public class LongBinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             LongBinaryIOOperator ioOperator = (t, u) -> {
                 throw new IOException("ioOperator");
             };
@@ -73,17 +73,17 @@ public class LongBinaryIOOperatorTest {
 
     @Nested
     @DisplayName("checked(LongBinaryOperator<T>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             LongBinaryOperator operator = (t, u) -> TEST_RESULT;
             LongBinaryIOOperator ioOperator = checked(operator);
 
@@ -92,7 +92,7 @@ public class LongBinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             LongBinaryOperator operator = (t, u) -> {
                 throw new UncheckedIOException(e);
@@ -105,7 +105,7 @@ public class LongBinaryIOOperatorTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             LongBinaryOperator operator = (t, u) -> {
                 throw e;

@@ -30,24 +30,24 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class LongIOSupplierTest {
+@SuppressWarnings("nls")
+class LongIOSupplierTest {
 
     private static final long TEST_VALUE = System.currentTimeMillis();
 
     @Nested
     @DisplayName("unchecked(LongIOSupplier)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("supplies")
-        public void testSupplies() {
+        void testSupplies() {
             LongIOSupplier ioSupplier = () -> TEST_VALUE;
             LongSupplier supplier = unchecked(ioSupplier);
 
@@ -56,7 +56,7 @@ public class LongIOSupplierTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             LongIOSupplier ioSupplier = () -> {
                 throw new IOException("ioSupplier");
             };
@@ -71,17 +71,17 @@ public class LongIOSupplierTest {
 
     @Nested
     @DisplayName("checked(LongSupplier)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("supplies")
-        public void testSupplies() throws IOException {
+        void testSupplies() throws IOException {
             LongSupplier supplier = () -> TEST_VALUE;
             LongIOSupplier ioSupplier = checked(supplier);
 
@@ -90,7 +90,7 @@ public class LongIOSupplierTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             LongSupplier supplier = () -> {
                 throw new UncheckedIOException(e);
@@ -103,7 +103,7 @@ public class LongIOSupplierTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             LongSupplier supplier = () -> {
                 throw e;

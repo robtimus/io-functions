@@ -34,18 +34,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class IOPredicateTest {
+@SuppressWarnings("nls")
+class IOPredicateTest {
 
     private static final String TEST_VALUE = "foo";
 
     @Nested
     @DisplayName("and(IOPredicate<? super T>)")
-    public class And {
+    class And {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             IOPredicate<String> predicate = t -> true;
 
             assertThrows(NullPointerException.class, () -> predicate.and(null));
@@ -53,7 +53,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("true and true")
-        public void testTrueAndTrue() throws IOException {
+        void testTrueAndTrue() throws IOException {
             IOPredicate<String> predicate = t -> true;
             IOPredicate<String> other = t -> true;
             IOPredicate<String> combined = predicate.and(other);
@@ -63,7 +63,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("true and false")
-        public void testTrueAndFalse() throws IOException {
+        void testTrueAndFalse() throws IOException {
             IOPredicate<String> predicate = t -> true;
             IOPredicate<String> other = t -> false;
             IOPredicate<String> combined = predicate.and(other);
@@ -73,7 +73,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("true and throws")
-        public void testTrueAndThrows() {
+        void testTrueAndThrows() {
             IOPredicate<String> predicate = t -> true;
             IOPredicate<String> other = t -> {
                 throw new IOException("other");
@@ -86,7 +86,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("false and true")
-        public void testFalseAndTrue() throws IOException {
+        void testFalseAndTrue() throws IOException {
             IOPredicate<String> predicate = t -> false;
             IOPredicate<String> other = t -> true;
             IOPredicate<String> combined = predicate.and(other);
@@ -96,7 +96,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("false and false")
-        public void testFalseAndFalse() throws IOException {
+        void testFalseAndFalse() throws IOException {
             IOPredicate<String> predicate = t -> false;
             IOPredicate<String> other = t -> false;
             IOPredicate<String> combined = predicate.and(other);
@@ -106,7 +106,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("false and throws")
-        public void testFalseAndThrows() throws IOException {
+        void testFalseAndThrows() throws IOException {
             IOPredicate<String> predicate = t -> false;
             IOPredicate<String> other = t -> {
                 throw new IOException("other");
@@ -118,7 +118,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("throws and true")
-        public void testThrowsAndTrue() {
+        void testThrowsAndTrue() {
             IOPredicate<String> predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -131,7 +131,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("throws and false")
-        public void testThrowsAndFalse() {
+        void testThrowsAndFalse() {
             IOPredicate<String> predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -144,7 +144,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             IOPredicate<String> predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -160,11 +160,11 @@ public class IOPredicateTest {
 
     @Nested
     @DisplayName("negate()")
-    public class Negate {
+    class Negate {
 
         @Test
         @DisplayName("true")
-        public void testTrue() throws IOException {
+        void testTrue() throws IOException {
             IOPredicate<String> predicate = t -> true;
             IOPredicate<String> negated = predicate.negate();
 
@@ -173,7 +173,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() throws IOException {
+        void testFalse() throws IOException {
             IOPredicate<String> predicate = t -> false;
             IOPredicate<String> negated = predicate.negate();
 
@@ -182,7 +182,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             IOPredicate<String> predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -195,11 +195,11 @@ public class IOPredicateTest {
 
     @Nested
     @DisplayName("or(IOPredicate<? super T>)")
-    public class Or {
+    class Or {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             IOPredicate<String> predicate = t -> true;
 
             assertThrows(NullPointerException.class, () -> predicate.or(null));
@@ -207,7 +207,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("true or true")
-        public void testTrueOrTrue() throws IOException {
+        void testTrueOrTrue() throws IOException {
             IOPredicate<String> predicate = t -> true;
             IOPredicate<String> other = t -> true;
             IOPredicate<String> combined = predicate.or(other);
@@ -217,7 +217,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("true or false")
-        public void testTrueOrFalse() throws IOException {
+        void testTrueOrFalse() throws IOException {
             IOPredicate<String> predicate = t -> true;
             IOPredicate<String> other = t -> false;
             IOPredicate<String> combined = predicate.or(other);
@@ -227,7 +227,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("true or throws")
-        public void testTrueOrThrows() throws IOException {
+        void testTrueOrThrows() throws IOException {
             IOPredicate<String> predicate = t -> true;
             IOPredicate<String> other = t -> {
                 throw new IOException("other");
@@ -239,7 +239,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("false or true")
-        public void testFalseOrTrue() throws IOException {
+        void testFalseOrTrue() throws IOException {
             IOPredicate<String> predicate = t -> false;
             IOPredicate<String> other = t -> true;
             IOPredicate<String> combined = predicate.or(other);
@@ -249,7 +249,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("false or false")
-        public void testFalseOrFalse() throws IOException {
+        void testFalseOrFalse() throws IOException {
             IOPredicate<String> predicate = t -> false;
             IOPredicate<String> other = t -> false;
             IOPredicate<String> combined = predicate.or(other);
@@ -259,7 +259,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("false or throws")
-        public void testFalseOrThrows() {
+        void testFalseOrThrows() {
             IOPredicate<String> predicate = t -> false;
             IOPredicate<String> other = t -> {
                 throw new IOException("other");
@@ -272,7 +272,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("throws or true")
-        public void testThrowsOrTrue() {
+        void testThrowsOrTrue() {
             IOPredicate<String> predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -285,7 +285,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("throws or false")
-        public void testThrowsOrFalse() {
+        void testThrowsOrFalse() {
             IOPredicate<String> predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -298,7 +298,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("throws or throws")
-        public void testThrowsOrThrows() {
+        void testThrowsOrThrows() {
             IOPredicate<String> predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -314,11 +314,11 @@ public class IOPredicateTest {
 
     @Nested
     @DisplayName("isEqual(Object)")
-    public class IsEqual {
+    class IsEqual {
 
         @Test
         @DisplayName("non-null value")
-        public void testNonNull() throws IOException {
+        void testNonNull() throws IOException {
             IOPredicate<String> predicate = isEqual("foo");
 
             assertTrue(predicate.test("foo"));
@@ -328,7 +328,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("null value")
-        public void testNull() throws IOException {
+        void testNull() throws IOException {
             IOPredicate<String> predicate = isEqual(null);
 
             assertFalse(predicate.test("foo"));
@@ -339,17 +339,17 @@ public class IOPredicateTest {
 
     @Nested
     @DisplayName("unchecked(IOPredicate<? super T>)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("true")
-        public void testTrue() {
+        void testTrue() {
             IOPredicate<String> ioPredicate = t -> true;
             Predicate<String> predicate = unchecked(ioPredicate);
 
@@ -358,7 +358,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() {
+        void testFalse() {
             IOPredicate<String> ioPredicate = t -> false;
             Predicate<String> predicate = unchecked(ioPredicate);
 
@@ -367,7 +367,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             IOPredicate<String> ioPredicate = t -> {
                 throw new IOException("ioPredicate");
             };
@@ -382,17 +382,17 @@ public class IOPredicateTest {
 
     @Nested
     @DisplayName("checked(Predicate<? super T>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("true")
-        public void testTrue() throws IOException {
+        void testTrue() throws IOException {
             Predicate<String> predicate = t -> true;
             IOPredicate<String> ioPredicate = checked(predicate);
 
@@ -401,7 +401,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() throws IOException {
+        void testFalse() throws IOException {
             Predicate<String> predicate = t -> false;
             IOPredicate<String> ioPredicate = checked(predicate);
 
@@ -410,7 +410,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             Predicate<String> predicate = t -> {
                 throw new UncheckedIOException(e);
@@ -423,7 +423,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             Predicate<String> predicate = t -> {
                 throw e;
@@ -437,17 +437,17 @@ public class IOPredicateTest {
 
     @Nested
     @DisplayName("not(IOPredicate<? super T>)")
-    public class Not {
+    class Not {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> not(null));
         }
 
         @Test
         @DisplayName("true")
-        public void testTrue() throws IOException {
+        void testTrue() throws IOException {
             IOPredicate<String> predicate = t -> true;
             IOPredicate<String> negated = not(predicate);
 
@@ -456,7 +456,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() throws IOException {
+        void testFalse() throws IOException {
             IOPredicate<String> predicate = t -> false;
             IOPredicate<String> negated = not(predicate);
 
@@ -465,7 +465,7 @@ public class IOPredicateTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             IOPredicate<String> predicate = t -> {
                 throw new IOException("predicate");
             };

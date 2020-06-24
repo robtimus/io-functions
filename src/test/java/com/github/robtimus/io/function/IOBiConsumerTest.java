@@ -33,19 +33,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class IOBiConsumerTest {
+@SuppressWarnings("nls")
+class IOBiConsumerTest {
 
     private static final String TEST_VALUE1 = "foo";
     private static final Integer TEST_VALUE2 = 13;
 
     @Nested
     @DisplayName("andThen(IOBiConsumer<? super T, ? super U>)")
-    public class AndThen {
+    class AndThen {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             IOBiConsumer<String, Integer> consumer = (t, u) -> { /* does nothing */ };
 
             assertThrows(NullPointerException.class, () -> consumer.andThen(null));
@@ -53,7 +53,7 @@ public class IOBiConsumerTest {
 
         @Test
         @DisplayName("accepts and accepts")
-        public void testAcceptsAndAccepts() throws IOException {
+        void testAcceptsAndAccepts() throws IOException {
             Map<String, Integer> consumerMap = new HashMap<>();
             Map<String, Integer> afterMap = new HashMap<>();
 
@@ -68,7 +68,7 @@ public class IOBiConsumerTest {
 
         @Test
         @DisplayName("accepts and throws")
-        public void testAcceptsAndThrows() {
+        void testAcceptsAndThrows() {
             Map<String, Integer> consumerMap = new HashMap<>();
 
             IOBiConsumer<String, Integer> consumer = consumerMap::put;
@@ -84,7 +84,7 @@ public class IOBiConsumerTest {
 
         @Test
         @DisplayName("throws and accepts")
-        public void testThrowsAndAccepts() {
+        void testThrowsAndAccepts() {
             Map<String, Integer> afterMap = new HashMap<>();
 
             IOBiConsumer<String, Integer> consumer = (t, u) -> {
@@ -100,7 +100,7 @@ public class IOBiConsumerTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             IOBiConsumer<String, Integer> consumer = (t, u) -> {
                 throw new IOException("consumer");
             };
@@ -116,17 +116,17 @@ public class IOBiConsumerTest {
 
     @Nested
     @DisplayName("unchecked(IOBiConsumer<? super T, ? super U>)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("accepts")
-        public void testAccepts() {
+        void testAccepts() {
             Map<String, Integer> map = new HashMap<>();
 
             IOBiConsumer<String, Integer> ioConsumer = map::put;
@@ -138,7 +138,7 @@ public class IOBiConsumerTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             IOBiConsumer<String, Integer> ioConsumer = (t, u) -> {
                 throw new IOException("ioConsumer");
             };
@@ -153,17 +153,17 @@ public class IOBiConsumerTest {
 
     @Nested
     @DisplayName("checked(BiConsumer<? super T, ? super U>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("accepts")
-        public void testAccepts() throws IOException {
+        void testAccepts() throws IOException {
             Map<String, Integer> map = new HashMap<>();
 
             BiConsumer<String, Integer> consumer = map::put;
@@ -175,7 +175,7 @@ public class IOBiConsumerTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             BiConsumer<String, Integer> consumer = (t, u) -> {
                 throw new UncheckedIOException(e);
@@ -188,7 +188,7 @@ public class IOBiConsumerTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             BiConsumer<String, Integer> consumer = (t, u) -> {
                 throw e;

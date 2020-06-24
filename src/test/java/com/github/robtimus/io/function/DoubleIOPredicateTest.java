@@ -32,18 +32,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class DoubleIOPredicateTest {
+@SuppressWarnings("nls")
+class DoubleIOPredicateTest {
 
     private static final double TEST_VALUE = Math.PI;
 
     @Nested
     @DisplayName("and(DoubleIOPredicate)")
-    public class And {
+    class And {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             DoubleIOPredicate predicate = t -> true;
 
             assertThrows(NullPointerException.class, () -> predicate.and(null));
@@ -51,7 +51,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("true and true")
-        public void testTrueAndTrue() throws IOException {
+        void testTrueAndTrue() throws IOException {
             DoubleIOPredicate predicate = t -> true;
             DoubleIOPredicate other = t -> true;
             DoubleIOPredicate combined = predicate.and(other);
@@ -61,7 +61,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("true and false")
-        public void testTrueAndFalse() throws IOException {
+        void testTrueAndFalse() throws IOException {
             DoubleIOPredicate predicate = t -> true;
             DoubleIOPredicate other = t -> false;
             DoubleIOPredicate combined = predicate.and(other);
@@ -71,7 +71,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("true and throws")
-        public void testTrueAndThrows() {
+        void testTrueAndThrows() {
             DoubleIOPredicate predicate = t -> true;
             DoubleIOPredicate other = t -> {
                 throw new IOException("other");
@@ -84,7 +84,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("false and true")
-        public void testFalseAndTrue() throws IOException {
+        void testFalseAndTrue() throws IOException {
             DoubleIOPredicate predicate = t -> false;
             DoubleIOPredicate other = t -> true;
             DoubleIOPredicate combined = predicate.and(other);
@@ -94,7 +94,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("false and false")
-        public void testFalseAndFalse() throws IOException {
+        void testFalseAndFalse() throws IOException {
             DoubleIOPredicate predicate = t -> false;
             DoubleIOPredicate other = t -> false;
             DoubleIOPredicate combined = predicate.and(other);
@@ -104,7 +104,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("false and throws")
-        public void testFalseAndThrows() throws IOException {
+        void testFalseAndThrows() throws IOException {
             DoubleIOPredicate predicate = t -> false;
             DoubleIOPredicate other = t -> {
                 throw new IOException("other");
@@ -116,7 +116,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("throws and true")
-        public void testThrowsAndTrue() {
+        void testThrowsAndTrue() {
             DoubleIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -129,7 +129,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("throws and false")
-        public void testThrowsAndFalse() {
+        void testThrowsAndFalse() {
             DoubleIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -142,7 +142,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             DoubleIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -158,11 +158,11 @@ public class DoubleIOPredicateTest {
 
     @Nested
     @DisplayName("negate()")
-    public class Negate {
+    class Negate {
 
         @Test
         @DisplayName("true")
-        public void testTrue() throws IOException {
+        void testTrue() throws IOException {
             DoubleIOPredicate predicate = t -> true;
             DoubleIOPredicate negated = predicate.negate();
 
@@ -171,7 +171,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() throws IOException {
+        void testFalse() throws IOException {
             DoubleIOPredicate predicate = t -> false;
             DoubleIOPredicate negated = predicate.negate();
 
@@ -180,7 +180,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             DoubleIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -193,11 +193,11 @@ public class DoubleIOPredicateTest {
 
     @Nested
     @DisplayName("or(DoubleIOPredicate)")
-    public class Or {
+    class Or {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             DoubleIOPredicate predicate = t -> true;
 
             assertThrows(NullPointerException.class, () -> predicate.or(null));
@@ -205,7 +205,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("true or true")
-        public void testTrueOrTrue() throws IOException {
+        void testTrueOrTrue() throws IOException {
             DoubleIOPredicate predicate = t -> true;
             DoubleIOPredicate other = t -> true;
             DoubleIOPredicate combined = predicate.or(other);
@@ -215,7 +215,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("true or false")
-        public void testTrueOrFalse() throws IOException {
+        void testTrueOrFalse() throws IOException {
             DoubleIOPredicate predicate = t -> true;
             DoubleIOPredicate other = t -> false;
             DoubleIOPredicate combined = predicate.or(other);
@@ -225,7 +225,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("true or throws")
-        public void testTrueOrThrows() throws IOException {
+        void testTrueOrThrows() throws IOException {
             DoubleIOPredicate predicate = t -> true;
             DoubleIOPredicate other = t -> {
                 throw new IOException("other");
@@ -237,7 +237,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("false or true")
-        public void testFalseOrTrue() throws IOException {
+        void testFalseOrTrue() throws IOException {
             DoubleIOPredicate predicate = t -> false;
             DoubleIOPredicate other = t -> true;
             DoubleIOPredicate combined = predicate.or(other);
@@ -247,7 +247,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("false or false")
-        public void testFalseOrFalse() throws IOException {
+        void testFalseOrFalse() throws IOException {
             DoubleIOPredicate predicate = t -> false;
             DoubleIOPredicate other = t -> false;
             DoubleIOPredicate combined = predicate.or(other);
@@ -257,7 +257,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("false or throws")
-        public void testFalseOrThrows() {
+        void testFalseOrThrows() {
             DoubleIOPredicate predicate = t -> false;
             DoubleIOPredicate other = t -> {
                 throw new IOException("other");
@@ -270,7 +270,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("throws or true")
-        public void testThrowsOrTrue() {
+        void testThrowsOrTrue() {
             DoubleIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -283,7 +283,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("throws or false")
-        public void testThrowsOrFalse() {
+        void testThrowsOrFalse() {
             DoubleIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -296,7 +296,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("throws or throws")
-        public void testThrowsOrThrows() {
+        void testThrowsOrThrows() {
             DoubleIOPredicate predicate = t -> {
                 throw new IOException("predicate");
             };
@@ -312,17 +312,17 @@ public class DoubleIOPredicateTest {
 
     @Nested
     @DisplayName("unchecked(DoubleIOPredicate)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("true")
-        public void testTrue() {
+        void testTrue() {
             DoubleIOPredicate ioPredicate = t -> true;
             DoublePredicate predicate = unchecked(ioPredicate);
 
@@ -331,7 +331,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() {
+        void testFalse() {
             DoubleIOPredicate ioPredicate = t -> false;
             DoublePredicate predicate = unchecked(ioPredicate);
 
@@ -340,7 +340,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             DoubleIOPredicate ioPredicate = t -> {
                 throw new IOException("ioPredicate");
             };
@@ -355,17 +355,17 @@ public class DoubleIOPredicateTest {
 
     @Nested
     @DisplayName("checked(DoublePredicate)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("true")
-        public void testTrue() throws IOException {
+        void testTrue() throws IOException {
             DoublePredicate predicate = t -> true;
             DoubleIOPredicate ioPredicate = checked(predicate);
 
@@ -374,7 +374,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("false")
-        public void testFalse() throws IOException {
+        void testFalse() throws IOException {
             DoublePredicate predicate = t -> false;
             DoubleIOPredicate ioPredicate = checked(predicate);
 
@@ -383,7 +383,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             DoublePredicate predicate = t -> {
                 throw new UncheckedIOException(e);
@@ -396,7 +396,7 @@ public class DoubleIOPredicateTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             DoublePredicate predicate = t -> {
                 throw e;

@@ -32,19 +32,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class UnaryIOOperatorTest {
+@SuppressWarnings("nls")
+class UnaryIOOperatorTest {
 
     private static final String TEST_VALUE = "foo";
     private static final String TEST_RESULT = "bar";
 
     @Nested
     @DisplayName("identity()")
-    public class Identity {
+    class Identity {
 
         @Test
         @DisplayName("non-null value")
-        public void testNonNull() throws IOException {
+        void testNonNull() throws IOException {
             UnaryIOOperator<String> operator = identity();
 
             assertEquals(TEST_VALUE, operator.apply(TEST_VALUE));
@@ -52,7 +52,7 @@ public class UnaryIOOperatorTest {
 
         @Test
         @DisplayName("null value")
-        public void testNull() throws IOException {
+        void testNull() throws IOException {
             UnaryIOOperator<String> operator = identity();
 
             assertNull(operator.apply(null));
@@ -61,17 +61,17 @@ public class UnaryIOOperatorTest {
 
     @Nested
     @DisplayName("unchecked(UnaryIOOperator<T>)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() {
+        void testApplies() {
             UnaryIOOperator<String> ioOperator = t -> TEST_RESULT;
             UnaryOperator<String> operator = unchecked(ioOperator);
 
@@ -80,7 +80,7 @@ public class UnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             UnaryIOOperator<String> ioOperator = t -> {
                 throw new IOException("ioOperator");
             };
@@ -95,17 +95,17 @@ public class UnaryIOOperatorTest {
 
     @Nested
     @DisplayName("checked(UnaryOperator<? super T, ? extends R>)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("applies")
-        public void testApplies() throws IOException {
+        void testApplies() throws IOException {
             UnaryOperator<String> operator = t -> TEST_RESULT;
             UnaryIOOperator<String> ioOperator = checked(operator);
 
@@ -114,7 +114,7 @@ public class UnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             UnaryOperator<String> operator = t -> {
                 throw new UncheckedIOException(e);
@@ -127,7 +127,7 @@ public class UnaryIOOperatorTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             UnaryOperator<String> operator = t -> {
                 throw e;

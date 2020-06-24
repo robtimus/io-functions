@@ -33,18 +33,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class DoubleIOConsumerTest {
+@SuppressWarnings("nls")
+class DoubleIOConsumerTest {
 
     private static final double TEST_VALUE = Math.PI;
 
     @Nested
     @DisplayName("andThen(DoubleIOConsumer)")
-    public class AndThen {
+    class AndThen {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             DoubleIOConsumer consumer = t -> { /* does nothing */ };
 
             assertThrows(NullPointerException.class, () -> consumer.andThen(null));
@@ -52,7 +52,7 @@ public class DoubleIOConsumerTest {
 
         @Test
         @DisplayName("accepts and accepts")
-        public void testAcceptsAndAccepts() throws IOException {
+        void testAcceptsAndAccepts() throws IOException {
             List<Double> consumerList = new ArrayList<>();
             List<Double> afterList = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class DoubleIOConsumerTest {
 
         @Test
         @DisplayName("accepts and throws")
-        public void testAcceptsAndThrows() {
+        void testAcceptsAndThrows() {
             List<Double> consumerList = new ArrayList<>();
 
             DoubleIOConsumer consumer = consumerList::add;
@@ -83,7 +83,7 @@ public class DoubleIOConsumerTest {
 
         @Test
         @DisplayName("throws and accepts")
-        public void testThrowsAndAccepts() {
+        void testThrowsAndAccepts() {
             List<Double> afterList = new ArrayList<>();
 
             DoubleIOConsumer consumer = t -> {
@@ -99,7 +99,7 @@ public class DoubleIOConsumerTest {
 
         @Test
         @DisplayName("throws and throws")
-        public void testThrowsAndThrows() {
+        void testThrowsAndThrows() {
             DoubleIOConsumer consumer = t -> {
                 throw new IOException("consumer");
             };
@@ -115,17 +115,17 @@ public class DoubleIOConsumerTest {
 
     @Nested
     @DisplayName("unchecked(DoubleIOConsumer)")
-    public class Unchecked {
+    class Unchecked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> unchecked(null));
         }
 
         @Test
         @DisplayName("accepts")
-        public void testAccepts() {
+        void testAccepts() {
             List<Double> list = new ArrayList<>();
 
             DoubleIOConsumer ioConsumer = list::add;
@@ -137,7 +137,7 @@ public class DoubleIOConsumerTest {
 
         @Test
         @DisplayName("throws")
-        public void testThrows() {
+        void testThrows() {
             DoubleIOConsumer ioConsumer = t -> {
                 throw new IOException("ioConsumer");
             };
@@ -152,17 +152,17 @@ public class DoubleIOConsumerTest {
 
     @Nested
     @DisplayName("checked(DoubleConsumer)")
-    public class Checked {
+    class Checked {
 
         @Test
         @DisplayName("null argument")
-        public void testNullArgument() {
+        void testNullArgument() {
             assertThrows(NullPointerException.class, () -> checked(null));
         }
 
         @Test
         @DisplayName("accepts")
-        public void testAccepts() throws IOException {
+        void testAccepts() throws IOException {
             List<Double> list = new ArrayList<>();
 
             DoubleConsumer consumer = list::add;
@@ -174,7 +174,7 @@ public class DoubleIOConsumerTest {
 
         @Test
         @DisplayName("throws UncheckedIOException")
-        public void testThrowsUncheckedIOException() {
+        void testThrowsUncheckedIOException() {
             IOException e = new IOException("original");
             DoubleConsumer consumer = t -> {
                 throw new UncheckedIOException(e);
@@ -187,7 +187,7 @@ public class DoubleIOConsumerTest {
 
         @Test
         @DisplayName("throws other exception")
-        public void testThrowsOtherException() {
+        void testThrowsOtherException() {
             IllegalStateException e = new IllegalStateException("error");
             DoubleConsumer consumer = t -> {
                 throw e;
