@@ -1,4 +1,9 @@
 # io-functions
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.robtimus/io-functions)](https://search.maven.org/artifact/com.github.robtimus/io-functions)
+[![Build Status](https://github.com/robtimus/io-functions/actions/workflows/build.yml/badge.svg)](https://github.com/robtimus/io-functions/actions/workflows/build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.robtimus%3Aio-functions&metric=alert_status)](https://sonarcloud.io/summary/overall?id=com.github.robtimus%3Aio-functions)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.github.robtimus%3Aio-functions&metric=coverage)](https://sonarcloud.io/summary/overall?id=com.github.robtimus%3Aio-functions)
+[![Known Vulnerabilities](https://snyk.io/test/github/robtimus/io-functions/badge.svg)](https://snyk.io/test/github/robtimus/io-functions)
 
 The `io-functions` library provides functional interfaces for I/O operations. These are basically copies of the functional interfaces in [java.util.functions](https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html) except their methods can throw [IOExceptions](https://docs.oracle.com/javase/8/docs/api/java/io/IOException.html).
 
