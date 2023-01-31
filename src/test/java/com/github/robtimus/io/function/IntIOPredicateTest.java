@@ -62,11 +62,7 @@ class IntIOPredicateTest {
         @Test
         @DisplayName("true and false")
         void testTrueAndFalse() throws IOException {
-            IntIOPredicate predicate = t -> true;
-            IntIOPredicate other = t -> false;
-            IntIOPredicate combined = predicate.and(other);
-
-            assertFalse(combined.test(TEST_VALUE));
+            testFalseResult(true, false);
         }
 
         @Test
@@ -85,21 +81,13 @@ class IntIOPredicateTest {
         @Test
         @DisplayName("false and true")
         void testFalseAndTrue() throws IOException {
-            IntIOPredicate predicate = t -> false;
-            IntIOPredicate other = t -> true;
-            IntIOPredicate combined = predicate.and(other);
-
-            assertFalse(combined.test(TEST_VALUE));
+            testFalseResult(false, true);
         }
 
         @Test
         @DisplayName("false and false")
         void testFalseAndFalse() throws IOException {
-            IntIOPredicate predicate = t -> false;
-            IntIOPredicate other = t -> false;
-            IntIOPredicate combined = predicate.and(other);
-
-            assertFalse(combined.test(TEST_VALUE));
+            testFalseResult(false, false);
         }
 
         @Test
@@ -154,6 +142,14 @@ class IntIOPredicateTest {
             IOException exception = assertThrows(IOException.class, () -> combined.test(TEST_VALUE));
             assertEquals("predicate", exception.getMessage());
         }
+
+        private void testFalseResult(boolean firstResult, boolean secondResult) throws IOException {
+            IntIOPredicate predicate = t -> firstResult;
+            IntIOPredicate other = t -> secondResult;
+            IntIOPredicate combined = predicate.and(other);
+
+            assertFalse(combined.test(TEST_VALUE));
+        }
     }
 
     @Nested
@@ -206,21 +202,13 @@ class IntIOPredicateTest {
         @Test
         @DisplayName("true or true")
         void testTrueOrTrue() throws IOException {
-            IntIOPredicate predicate = t -> true;
-            IntIOPredicate other = t -> true;
-            IntIOPredicate combined = predicate.or(other);
-
-            assertTrue(combined.test(TEST_VALUE));
+            testTrueResult(true, true);
         }
 
         @Test
         @DisplayName("true or false")
         void testTrueOrFalse() throws IOException {
-            IntIOPredicate predicate = t -> true;
-            IntIOPredicate other = t -> false;
-            IntIOPredicate combined = predicate.or(other);
-
-            assertTrue(combined.test(TEST_VALUE));
+            testTrueResult(true, false);
         }
 
         @Test
@@ -238,11 +226,7 @@ class IntIOPredicateTest {
         @Test
         @DisplayName("false or true")
         void testFalseOrTrue() throws IOException {
-            IntIOPredicate predicate = t -> false;
-            IntIOPredicate other = t -> true;
-            IntIOPredicate combined = predicate.or(other);
-
-            assertTrue(combined.test(TEST_VALUE));
+            testTrueResult(false, true);
         }
 
         @Test
@@ -307,6 +291,14 @@ class IntIOPredicateTest {
 
             IOException exception = assertThrows(IOException.class, () -> combined.test(TEST_VALUE));
             assertEquals("predicate", exception.getMessage());
+        }
+
+        private void testTrueResult(boolean firstResult, boolean secondResult) throws IOException {
+            IntIOPredicate predicate = t -> firstResult;
+            IntIOPredicate other = t -> secondResult;
+            IntIOPredicate combined = predicate.or(other);
+
+            assertTrue(combined.test(TEST_VALUE));
         }
     }
 

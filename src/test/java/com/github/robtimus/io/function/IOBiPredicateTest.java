@@ -63,11 +63,7 @@ class IOBiPredicateTest {
         @Test
         @DisplayName("true and false")
         void testTrueAndFalse() throws IOException {
-            IOBiPredicate<String, Integer> predicate = (t, u) -> true;
-            IOBiPredicate<String, Integer> other = (t, u) -> false;
-            IOBiPredicate<String, Integer> combined = predicate.and(other);
-
-            assertFalse(combined.test(TEST_VALUE1, TEST_VALUE2));
+            testFalseResult(true, false);
         }
 
         @Test
@@ -86,21 +82,13 @@ class IOBiPredicateTest {
         @Test
         @DisplayName("false and true")
         void testFalseAndTrue() throws IOException {
-            IOBiPredicate<String, Integer> predicate = (t, u) -> false;
-            IOBiPredicate<String, Integer> other = (t, u) -> true;
-            IOBiPredicate<String, Integer> combined = predicate.and(other);
-
-            assertFalse(combined.test(TEST_VALUE1, TEST_VALUE2));
+            testFalseResult(false, true);
         }
 
         @Test
         @DisplayName("false and false")
         void testFalseAndFalse() throws IOException {
-            IOBiPredicate<String, Integer> predicate = (t, u) -> false;
-            IOBiPredicate<String, Integer> other = (t, u) -> false;
-            IOBiPredicate<String, Integer> combined = predicate.and(other);
-
-            assertFalse(combined.test(TEST_VALUE1, TEST_VALUE2));
+            testFalseResult(false, false);
         }
 
         @Test
@@ -155,6 +143,14 @@ class IOBiPredicateTest {
             IOException exception = assertThrows(IOException.class, () -> combined.test(TEST_VALUE1, TEST_VALUE2));
             assertEquals("predicate", exception.getMessage());
         }
+
+        private void testFalseResult(boolean firstResult, boolean secondResult) throws IOException {
+            IOBiPredicate<String, Integer> predicate = (t, u) -> firstResult;
+            IOBiPredicate<String, Integer> other = (t, u) -> secondResult;
+            IOBiPredicate<String, Integer> combined = predicate.and(other);
+
+            assertFalse(combined.test(TEST_VALUE1, TEST_VALUE2));
+        }
     }
 
     @Nested
@@ -207,21 +203,13 @@ class IOBiPredicateTest {
         @Test
         @DisplayName("true or true")
         void testTrueOrTrue() throws IOException {
-            IOBiPredicate<String, Integer> predicate = (t, u) -> true;
-            IOBiPredicate<String, Integer> other = (t, u) -> true;
-            IOBiPredicate<String, Integer> combined = predicate.or(other);
-
-            assertTrue(combined.test(TEST_VALUE1, TEST_VALUE2));
+            testTrueResult(true, true);
         }
 
         @Test
         @DisplayName("true or false")
         void testTrueOrFalse() throws IOException {
-            IOBiPredicate<String, Integer> predicate = (t, u) -> true;
-            IOBiPredicate<String, Integer> other = (t, u) -> false;
-            IOBiPredicate<String, Integer> combined = predicate.or(other);
-
-            assertTrue(combined.test(TEST_VALUE1, TEST_VALUE2));
+            testTrueResult(true, false);
         }
 
         @Test
@@ -239,11 +227,7 @@ class IOBiPredicateTest {
         @Test
         @DisplayName("false or true")
         void testFalseOrTrue() throws IOException {
-            IOBiPredicate<String, Integer> predicate = (t, u) -> false;
-            IOBiPredicate<String, Integer> other = (t, u) -> true;
-            IOBiPredicate<String, Integer> combined = predicate.or(other);
-
-            assertTrue(combined.test(TEST_VALUE1, TEST_VALUE2));
+            testTrueResult(false, true);
         }
 
         @Test
@@ -308,6 +292,14 @@ class IOBiPredicateTest {
 
             IOException exception = assertThrows(IOException.class, () -> combined.test(TEST_VALUE1, TEST_VALUE2));
             assertEquals("predicate", exception.getMessage());
+        }
+
+        private void testTrueResult(boolean firstResult, boolean secondResult) throws IOException {
+            IOBiPredicate<String, Integer> predicate = (t, u) -> firstResult;
+            IOBiPredicate<String, Integer> other = (t, u) -> secondResult;
+            IOBiPredicate<String, Integer> combined = predicate.or(other);
+
+            assertTrue(combined.test(TEST_VALUE1, TEST_VALUE2));
         }
     }
 
