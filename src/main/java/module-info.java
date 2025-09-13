@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+/**
+ * A collection of functional interfaces for I/O operations.
+ */
 module com.github.robtimus.io.functions {
     exports com.github.robtimus.io.function;
 }
