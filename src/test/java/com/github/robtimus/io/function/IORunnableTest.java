@@ -66,7 +66,7 @@ class IORunnableTest {
             };
             Runnable action = unchecked(ioAction);
 
-            UncheckedIOException exception = assertThrows(UncheckedIOException.class, () -> action.run());
+            UncheckedIOException exception = assertThrows(UncheckedIOException.class, action::run);
             IOException cause = exception.getCause();
             assertNotNull(cause);
             assertEquals("ioAction", cause.getMessage());
@@ -104,7 +104,7 @@ class IORunnableTest {
             };
             IORunnable ioAction = checked(action);
 
-            IOException exception = assertThrows(IOException.class, () -> ioAction.run());
+            IOException exception = assertThrows(IOException.class, ioAction::run);
             assertSame(e, exception);
         }
 
@@ -117,7 +117,7 @@ class IORunnableTest {
             };
             IORunnable ioAction = checked(action);
 
-            IllegalStateException exception = assertThrows(IllegalStateException.class, () -> ioAction.run());
+            IllegalStateException exception = assertThrows(IllegalStateException.class, ioAction::run);
             assertSame(e, exception);
         }
     }
